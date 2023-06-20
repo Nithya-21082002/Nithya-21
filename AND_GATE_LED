@@ -12,7 +12,7 @@ while(1){
 __bit a,b
 a=SW1;
 b=SW2;
-if(a==ON&&b==OFF){
+if(a==ON&&b==ON){
 LED=ON;
 }
 else{
