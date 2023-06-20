@@ -1,0 +1,17 @@
+#include<AT89S52.h>
+void wait(int);
+void main(){
+while(1){
+P0=0xAA;//01010101
+wait(1);
+P0=0x55;
+wait(1);
+}
+}
+void wait(int del){
+int a,b;
+for(a=0;a<del;a++){
+for(b=0;b<del;b++){
+}
+}
+}
