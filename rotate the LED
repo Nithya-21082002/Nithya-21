@@ -1,6 +1,26 @@
 #include<AT89S52.h>
 void wait(int);
 void main(){
+char data=0x01;
+char i;
+while(1){
+for(i=0;i<8;i++){
+P0=~(data<<i);
+wait(1);
+}
+}
+}
+void wait(int del){
+int a,b;
+for(a=0;a<del;a++){
+for(b=0;b<del;b++){
+}
+}
+}
+                      ~~~~~~~~~~~~OR~~~~~~~~~~~~~
+#include<AT89S52.h>
+void wait(int);
+void main(){
 while(1){
 P0=~0x01;
 wait(1);
