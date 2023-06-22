@@ -2,9 +2,9 @@
 void wait(int);
 void main(){
 while(1){
-P0=0xAA;//01010101
+P0=0xAA;                   //01010101
 wait(1);
-P0=0x55;
+P0=(data<<1)|(data>>7);
 wait(1);
 }
 }
