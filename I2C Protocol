@@ -1,0 +1,98 @@
+#include <AT89S52.h>                    //initially port pin is high
+#define SCL P0_3
+#define SDA P1_5
+void i2c_init()
+{
+   SCL=0;          
+   SDA=0;                              
+}
+void i2c_start()
+{
+   SDA=1;                              
+   SCL=1;                              
+   SDA=0;                              
+   SCL=0;
+}
+void i2c_stop()
+{
+   SCL=1;
+   SDA=1;                            
+   SCL=0;                                
+   SDA=0;
+}
+void i2c_ack()
+{
+  SDA=0;
+  SCL=1;                                  
+  SCL=0;
+}
+void i2c_nack()
+{
+  SDA=1;                                    
+  SCL=1;              
+  SCL=0;
+  SDA=0;
+}
+void i2c_write(char b)                      
+{
+  char i;
+  __bit v=1;                                  
+  while(v==1){                      
+  for(i=0;i<8;i++)
+  {
+    if((b)&(0x80>>i)!=0)
+       SDA=1;
+    else
+       SDA=0;
+    SCL=1;                                  
+    SCL=0;          
+  }
+  SDA=1;                                      
+  SCL=1;                                      
+  v=SDA;                                      
+  SCL=0;
+  SDA=0;
+  }
+ 
+}
+char i2c_read()
+{
+  char s=0x00;
+  char i;
+  SDA=1;                                      
+  for(i=0;i<8;i++)                            
+  {
+     SCL=1;                                  
+     if(SDA==1)
+     {
+        s=s|(0x80>>i);
+     }
+     else
+     {
+     }
+     SCL=0;
+  }
+  SDA=0;
+  return s;
+}
+void main()
+{
+  i2c_init();                            
+  i2c_start();
+  i2c_write(0xD0);                        
+  i2c_write(0x00);                      
+  i2c_write(0x00);
+  i2c_stop;
+  while(1)
+  {
+     i2c_start();
+     i2c_write(0xD0);
+     i2c_write(0x00);
+     i2c_start();
+     i2c_write(0xD1);
+     P2=~i2c_read();                          
+     i2c_nack();
+     i2c_stop();
+  }
+}
+
